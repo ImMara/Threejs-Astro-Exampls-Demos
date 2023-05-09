@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas class="webgl"></canvas>
+</body>
+</html>
+<script>
+    import "../../scripts/three.min.js";
+    import gsap from 'gsap';
+
+    const canvas = document.querySelector('.webgl');
+
+    const scene = new THREE.Scene();
+
+    const geometry = new THREE.BoxGeometry(1,1,1);
+    const material = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const mesh = new THREE.Mesh(geometry,material);
+    scene.add(mesh);
+
+    const sizes = {
+        width: 800,
+        height: 600
+    }
+
+    const camera = new THREE.PerspectiveCamera(75,sizes.width/sizes.height);
+    camera.position.z = 3;
+    scene.add(camera);
+
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas
+    });
+    renderer.setSize(sizes.width,sizes.height);
+
+    // Clock
+    // const clock = new THREE.Clock();
+
+    gsap.to(mesh.position,{duration: 1, delay: 1, x: 2})
+    gsap.to(mesh.position,{duration: 1, delay: 2, x: 0})
+
+    // Animations
+    const tick = () =>{
+
+        // Clock
+        // permet de calculer le temps entre chaque frame
+        // et de l'utiliser pour les animations
+        // 1 frame = 1/60s
+        // const elapsedTime = clock.getElapsedTime();
+
+        // Update Object
+        // mesh.rotation.x = elapsedTime;
+        // mesh.rotation.y = elapsedTime;
+
+        // camera.position.y = Math.sin(elapsedTime);
+        // camera.position.x = Math.cos(elapsedTime);
+
+        // camera.lookAt(mesh.position);
+
+        // Render
+        renderer.render(scene,camera);
+
+        window.requestAnimationFrame(tick)
+    }
+
+    tick();
+
+</script>

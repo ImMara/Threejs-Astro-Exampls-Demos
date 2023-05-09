@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<h1>Welcome to <span class="text-gradient">Eraerts Alan ThreeJS Astro showcase</span></h1>
+		<p class="instructions">
+			<code>three js sample</code><br />
+			<strong>Technics 3D demo</strong> made with <a href="https://threejs.org">ThreeJS</a> and <a href="https://astro.build">Astro</a>.
+		</p>
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/basics"
+				title="Basic ThreeJS"
+				body="Learn the basics of ThreeJS"
+			/>
+			<Card
+				href="/animations"
+				title="Three JS Animations"
+				body="different types of animations"
+			/>
+			<Card
+				href="/cameras"
+				title="Three js Cameras"
+				body="different types of cameras"
+			/>
+			<Card
+				href="/geometry"
+				title="Three js Geometry and Meshes"
+				body="how to handle meshes and geometry"
+			/>
+			<Card
+				href="/debugg"
+				title="Three js debugg tool"
+				body="debugg tool experience"
+			/>
+			<Card
+				href="/textures"
+				title="Three js Textures"
+				body="textures️"
+			/>
+			<Card
+				href="/materials"
+				title="Three js Materials"
+				body="materials"
+			/>
+			<Card
+				href="/3DText"
+				title="Three js fonts"
+				body="3d text with fonts"
+			/>
+			<Card
+				href="/lights"
+				title="Three js lights"
+				body="how to use lights in ThreeJS"
+			/>
+			<Card
+				href="/shadows"
+				title="Three js Shadows"
+				body="different types of shadows"
+			/>
+			<Card
+				href="/haunted"
+				title="Hanted House"
+				body="Demo of technics ThreeJS️"
+			/>
+
+		</ul>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.instructions code {
+		font-size: 0.875em;
+		font-weight: bold;
+		background: rgba(var(--accent), 12%);
+		color: rgb(var(--accent));
+		border-radius: 4px;
+		padding: 0.3em 0.45em;
+	}
+	.instructions strong {
+		color: rgb(var(--accent));
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>
