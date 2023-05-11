@@ -111,9 +111,11 @@
 
         const impactStrength = collision.contact.getImpactVelocityAlongNormal()
 
+        console.log(impactStrength/10)
+
         if(impactStrength > 1.5)
         {
-            hitSound.volume = hitSound.volume = Math.max(0, Math.min(1, impactStrength * 0.5))
+            hitSound.volume = Math.max(0,Math.min(1,impactStrength / 100))
             hitSound.currentTime = 0
             hitSound.play()
         }
