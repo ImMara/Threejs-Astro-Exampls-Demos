@@ -71,8 +71,8 @@
             object.body.removeEventListener('collide', playHitSound)
             world.removeBody(object.body)
             scene.remove(object.mesh)
-            objectsToUpdate.splice(0, objectsToUpdate.length)
         }
+        objectsToUpdate.splice(0, objectsToUpdate.length)
     }
     gui.add(debugObject, 'createSphere')
     gui.add(debugObject, 'createBox')
@@ -110,9 +110,10 @@
     {
 
         const impactStrength = collision.contact.getImpactVelocityAlongNormal()
+
         if(impactStrength > 1.5)
         {
-            hitSound.volume = Math.random()
+            hitSound.volume = hitSound.volume = Math.max(0, Math.min(1, impactStrength * 0.5))
             hitSound.currentTime = 0
             hitSound.play()
         }
@@ -125,22 +126,9 @@
     const world = new CANNON.World()
     world.broadphase = new CANNON.SAPBroadphase(world) // broadphase is the algorithm that will detect collisions for performance
     world.allowSleep = true // allow the objects to sleep when they are not moving
-
     world.gravity.set(0, - 9.82, 0)
 
-    // Materials
-    // const concreteMaterial = new CANNON.Material('concrete')
-    // const plasticMaterial = new CANNON.Material('plastic')
-    //
-    // const concretePlasticContactMaterial = new CANNON.ContactMaterial(
-    //     concreteMaterial,
-    //     plasticMaterial,
-    //     {
-    //         friction: 0.1,
-    //         restitution: 0.7
-    //     }
-    // )
-    // world.addContactMaterial(concretePlasticContactMaterial)
+
     const defaultMaterial = new CANNON.Material('default')
      const defaultContactMaterial = new CANNON.ContactMaterial(
          defaultMaterial,
@@ -153,20 +141,6 @@
     world.addContactMaterial(defaultContactMaterial)
     world.defaultContactMaterial = defaultContactMaterial
 
-    // Sphere
-    // const sphereShape = new CANNON.Sphere(0.5)// same radius as the sphere
-    // const sphereBody = new CANNON.Body({
-    //     mass: 1,
-    //     position: new CANNON.Vec3(0, 3, 0),
-    //     shape: sphereShape,
-    //     // material: plasticMaterial
-    //     // material: defaultMaterial,
-    // })
-    // sphereBody.applyLocalForce(
-    //     new CANNON.Vec3(150, 0, 0),
-    //     new CANNON.Vec3(0, 0, 0)
-    // )
-    // world.addBody(sphereBody)
 
     // Floor
     const floorShape = new CANNON.Box(new CANNON.Vec3(5, 0.01, 5))
@@ -180,22 +154,6 @@
     //     Math.PI * 0.5
     // ) // rotate the floor 90 degrees like the geometry , have to put an axes and rotate around it
    world.addBody(floorBody)
-
-    /**
-     * Test sphere
-     */
-    // const sphere = new THREE.Mesh(
-    //     new THREE.SphereGeometry(0.5, 32, 32),
-    //     new THREE.MeshStandardMaterial({
-    //         metalness: 0.3,
-    //         roughness: 0.4,
-    //         envMap: environmentMapTexture,
-    //         envMapIntensity: 0.5
-    //     })
-    // )
-    // sphere.castShadow = true
-    // sphere.position.y = 0.5
-    // scene.add(sphere)
 
     /**
      * Floor
@@ -381,7 +339,7 @@
             }
         })
 
-        world.step(1 / 60, elapsedTime, 3)
+        world.step(1 / 60)
 
         // sphere.position.copy(sphereBody.position) // take position from cannon and apply it to threejs
 
