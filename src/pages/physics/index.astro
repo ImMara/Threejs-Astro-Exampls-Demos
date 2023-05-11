@@ -169,16 +169,16 @@
     // world.addBody(sphereBody)
 
     // Floor
-    const floorShape = new CANNON.Plane()
+    const floorShape = new CANNON.Box(new CANNON.Vec3(5, 0.01, 5))
     const floorBody = new CANNON.Body()
     floorBody.mass = 0 // mass 0 means it's static
+    // add limit to the floor horizontally
     floorBody.addShape(floorShape)
-    // floorBody.material = concreteMaterial
-    // floorBody.material = defaultMaterial
-    floorBody.quaternion.setFromAxisAngle(
-        new CANNON.Vec3(- 1, 0, 0),
-        Math.PI * 0.5
-    ) // rotate the floor 90 degrees like the geometry , have to put an axes and rotate around it
+
+    // floorBody.quaternion.setFromAxisAngle(
+    //     new CANNON.Vec3(- 1, 0, 0),
+    //     Math.PI * 0.5
+    // ) // rotate the floor 90 degrees like the geometry , have to put an axes and rotate around it
    world.addBody(floorBody)
 
     /**
@@ -373,6 +373,12 @@
         objectsToUpdate.forEach(object => {
             object.mesh.position.copy(object.body.position)
             object.mesh.quaternion.copy(object.body.quaternion)
+            // if object fall down destroy it after 3 seconds
+            if(object.mesh.position.y < -3){
+                object.body.removeEventListener('collide', playHitSound)
+                world.removeBody(object.body)
+                scene.remove(object.mesh)
+            }
         })
 
         world.step(1 / 60, elapsedTime, 3)
