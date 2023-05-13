@@ -54,7 +54,7 @@
 
     // Scene
     const scene = new THREE.Scene()
-    scene.backgroundBlurriness = 0.1
+    scene.backgroundBlurriness = 0.02
 
     /**
      * Update all materials
@@ -77,12 +77,12 @@
      * Environment map
      */
     const environmentMap = cubeTextureLoader.load([
-        '/textures/environmentMaps/1/px.png',
-        '/textures/environmentMaps/1/nx.png',
-        '/textures/environmentMaps/1/py.png',
-        '/textures/environmentMaps/1/ny.png',
-        '/textures/environmentMaps/1/pz.png',
-        '/textures/environmentMaps/1/nz.png'
+        '/environmentMaps/0/px.jpg',
+        '/environmentMaps/0/nx.jpg',
+        '/environmentMaps/0/py.jpg',
+        '/environmentMaps/0/ny.jpg',
+        '/environmentMaps/0/pz.jpg',
+        '/environmentMaps/0/nz.jpg'
     ])
     environmentMap.outputColorSpace = THREE.SRGBColorSpace
     scene.background = environmentMap
@@ -197,7 +197,6 @@
     renderer.toneMappingExposure = 3
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    renderer.blurriness = 0.3
 
     gui.add( scene, 'backgroundBlurriness', 0, 1 )
 
